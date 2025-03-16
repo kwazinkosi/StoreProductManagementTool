@@ -9,13 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().invalidate();
-        response.sendRedirect("login.jsp");
-    }
+		
+		request.getSession().invalidate(); // Destroy session
+		response.sendRedirect(request.getContextPath() + "/login.jsp"); // Redirect to login
+	}
 }

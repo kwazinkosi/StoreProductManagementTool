@@ -8,29 +8,38 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import dao.IProductDAO;
 import dao.ProductDAOImpl;
 import model.Product;
 
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final IProductDAO productDAO = new ProductDAOImpl();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = productDAO.getAllProducts();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        // Calculate total image size
-        long totalSize = 0;
-        for (Product product : products) {
-            totalSize += product.getSize();
-        }
+		HttpSession session = request.getSession(false);
 
-        request.setAttribute("products", products);
-        request.setAttribute("totalSize", totalSize / 1024); // Convert to KB
-        request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
-    }
+		if (session == null || session.getAttribute("username") == null) {
+			
+			response.sendRedirect(request.getContextPath() + "/login.jsp?error=Please login first");
+			return;
+		}
+		List<Product> products = productDAO.getAllProducts();
+		// Calculate total image size
+		long totalSize = 0;
+		for (Product product : products) {
+			totalSize += product.getSize();
+		}
+
+		request.setAttribute("products", products);
+		request.setAttribute("totalSize", totalSize / 1024); // Convert to KB
+		request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
+	}
 }

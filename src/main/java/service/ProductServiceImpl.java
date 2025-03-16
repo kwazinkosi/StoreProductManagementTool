@@ -3,22 +3,24 @@ package service;
 import java.util.List;
 
 import dao.IProductDAO;
+import dao.ProductDAOImpl;
 import exceptions.ServiceException;
 import intefaces.IProductValidator;
 import model.Product;
 //import utils.LoggingManager;
 
 
-public class ProductService {
-//	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+public class ProductServiceImpl implements IProductService {
+//	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	private final IProductDAO productDAO;
 
 	private final IProductValidator validator;
 
 	// Constructor injection
-	public ProductService(IProductDAO productDAO, IProductValidator validator) {
-		this.productDAO = productDAO;
-		this.validator = validator;
+	public ProductServiceImpl() {
+		
+		this.productDAO = new ProductDAOImpl();
+		this.validator = new ProductValidatorImpl();
 	}
 
 	public void addProduct(Product product) {
@@ -42,13 +44,18 @@ public class ProductService {
 		}
 	}
 
-	public void deleteProduct(int productId) {
+	public boolean deleteProduct(int productId) {
+		
 		try {
-			productDAO.deleteProduct(productId);
-//			LoggingManager.info("Product deleted successfully: ID "+ productId);
+			Product product = productDAO.getProductById(productId);
+	        if (product != null) {
+	            productDAO.deleteProduct(productId);
+	            return true;
+	        }
 		} catch (Exception e) {
 //			LoggingManager.error("Error deleting product: "+ e.getMessage(), e);
 			throw new ServiceException("Failed to delete product", e);
 		}
+	    return false;
 	}
 }

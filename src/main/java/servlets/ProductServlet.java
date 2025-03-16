@@ -2,15 +2,11 @@ package servlets;
 
 import java.io.IOException;
 import intefaces.IFileStorage;
-import service.ProductService;
-import service.ProductValidatorImpl;
+import service.ProductServiceImpl;
 import service.RequestParser;
 
 import exceptions.ValidationException;
-import intefaces.IProductValidator;
 import service.LocalFileStorageImpl;
-import dao.IProductDAO;
-import dao.ProductDAOImpl;
 import model.Product;
 
 import jakarta.servlet.ServletException;
@@ -21,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-@WebServlet("/AddProduct")
+@WebServlet("/addProduct")
 @MultipartConfig(
     maxFileSize = 1024 * 1024,   // 1MB per file
     maxRequestSize = 1024 * 1024 * 5,  // 5MB total request
@@ -31,15 +27,14 @@ public class ProductServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
     private IFileStorage fileStorage;
     private RequestParser requestParser;
 
     @Override
     public void init() throws ServletException {
-        IProductDAO productDAO = new ProductDAOImpl();
-        IProductValidator validator = new ProductValidatorImpl();
-        this.productService = new ProductService(productDAO, validator);
+        
+        this.productServiceImpl = new ProductServiceImpl();
         
         // Use an external upload directory
         String uploadDir = System.getProperty("catalina.base") + "/uploads";
@@ -51,7 +46,8 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        
+    	try {
             Product product = requestParser.parseProductRequest(request);
 
             // Handle file upload
@@ -65,7 +61,7 @@ public class ProductServlet extends HttpServlet {
                 product.setImage(imagePath);
             }
 
-            productService.addProduct(product);
+            productServiceImpl.addProduct(product);
             response.sendRedirect("dashboard"); // Redirect to a servlet, not JSP
 
         } catch (ValidationException e) {

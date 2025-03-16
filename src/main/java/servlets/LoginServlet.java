@@ -10,33 +10,31 @@ import service.IUserService;
 import service.UserServiceImpl;
 import java.io.IOException;
 
-@WebServlet("/login")
+
+@WebServlet("/login") 
 public class LoginServlet extends HttpServlet {
 	
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private final IUserService userService = new UserServiceImpl();
+    private static final long serialVersionUID = 1L;
+    private final IUserService userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-    	String username = request.getParameter("username");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            
-        	response.sendRedirect("login.jsp?error=Empty fields");
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=Empty fields");
             return;
         }
 
         if (userService.authenticate(username, password)) {
-            
-        	HttpSession session = request.getSession();
+            HttpSession session = request.getSession(true); // Creates a new session if one doesn't exist
             session.setAttribute("username", username);
-            request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
+            
+            // Redirect to dashboard servlet to avoid request forwarding issues
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         } else {
-            response.sendRedirect("login.jsp?error=Invalid credentials");
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=Invalid credentials");
         }
     }
 }
