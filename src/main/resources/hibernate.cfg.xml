@@ -1,0 +1,23 @@
+<hibernate-configuration>
+    <session-factory>
+        <!-- PostgreSQL Connection -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/tshirt_store</property>
+        <property name="hibernate.connection.username">kwazi</property>
+        <property name="hibernate.connection.password">StrongPassword123!</property>
+
+        <!-- PostgreSQL Dialect (Highly Recommended) -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Show SQL in Development -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.use_sql_comments">true</property>
+
+        <!-- Schema Auto Update (Avoid for Production) -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- Entity Mappings -->
+        <mapping class="model.User"/>
+         <mapping class="model.Product"/>
+    </session-factory>
+</hibernate-configuration>

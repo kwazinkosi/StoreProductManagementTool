@@ -1,0 +1,144 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.top-bar .logout {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #ff5555;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.top-bar .logout:hover {
+    background-color: #cc4444;
+}
+
+/* Product Form */
+.product-form {
+    width: 40%;
+    margin: 30px auto; 
+    padding: 20px;
+/*     push form the left */
+    align-self: flex-start;
+    
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-form h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.product-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.product-form input[type="file"] {
+    border: none;
+}
+
+.product-form .submit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.product-form .submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Product Table */
+.product-table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.product-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.product-table td img {
+    width: 60px;
+    border-radius: 5px;
+}
+
+/* Actions */
+.actions i {
+    font-size: 18px;
+    margin: 0 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.actions .edit {
+    color: #28a745;
+}
+
+.actions .edit:hover {
+    color: #218838;
+}
+
+.actions .delete {
+    color: #dc3545;
+}
+
+.actions .delete:hover {
+    color: #c82333;
+}
+
+/* Total Size Section */
+.total-size {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
