@@ -33,11 +33,24 @@
 		</div>
 	</div>
 
-	<!-- Product Form -->
+	<!-- Error Display Section -->
+	<c:if test="${not empty error}">
+		<div class="error-message">
+			<c:out value="${error}" />
+		</div>
+	</c:if>
+	<c:if test="${not empty param.error}">
+		<div class="error-message">
+			<c:out value="${param.error}" />
+		</div>
+	</c:if>
+	
 	<!-- Product Form -->
 	<div class="product-form">
 		<h3 id="formTitle">Enter Product Details</h3>
-		<form id="productForm" action="${pageContext.request.contextPath}/addProduct" method="post" enctype="multipart/form-data">
+		<form id="productForm"
+			action="${pageContext.request.contextPath}/addProduct" method="post"
+			enctype="multipart/form-data">
 			<input type="hidden" id="productId" name="id"> <input
 				type="text" id="productTitle" name="title" placeholder="Title"
 				required> <input type="number" id="productQuantity"
@@ -77,13 +90,13 @@
 
 				<td class="actions">
 					<button type="button" class="icon-btn edit-btn"
-						data-id="${product.id}" 
+						data-id="${product.id}"
 						data-title="<c:out value='${product.title}'/>"
 						data-quantity="${product.quantity}" data-size="${product.size}"
 						data-image="${product.image}">
-					
-<!-- 					<button type="button" class="icon-btn" -->
-<%-- 						onclick="editProduct('${product.id}', '${product.title}', '${product.quantity}', '${product.size}', '${product.image}')"> --%>
+
+						<!-- 					<button type="button" class="icon-btn" -->
+						<%-- 						onclick="editProduct('${product.id}', '${product.title}', '${product.quantity}', '${product.size}', '${product.image}')"> --%>
 						<i class="fa fa-pencil edit"></i>
 					</button>
 					<form action="${pageContext.request.contextPath}/DeleteProduct"
