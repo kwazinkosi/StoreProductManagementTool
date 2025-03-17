@@ -74,16 +74,13 @@ public class UpdateProductServlet extends HttpServlet {
             response.sendRedirect("dashboard"); // Redirect to dashboard after update
 
         } catch (ValidationException e) {
-            handleError(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
+        	
+        	request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
         } catch (Exception e) {
-            handleError(response, "Server error: " + e.getMessage(), HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        	
+        	request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
         }
-    }
-
-    private void handleError(HttpServletResponse response, String message, int statusCode) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.setStatus(statusCode);
-        response.getWriter().write("{\"error\": \"" + message + "\"}");
     }
 }

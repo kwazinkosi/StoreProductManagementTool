@@ -40,7 +40,6 @@ public class DashboardServlet extends HttpServlet {
 
 		
 		System.out.println("totalSize = " + (totalSizeKB / 1024));
-
 		request.setAttribute("products", products);
 		request.setAttribute("totalSize", totalSizeKB / 1024); // Convert to KB
 		request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
