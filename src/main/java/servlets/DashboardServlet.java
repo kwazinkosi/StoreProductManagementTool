@@ -33,13 +33,16 @@ public class DashboardServlet extends HttpServlet {
 		}
 		List<Product> products = productDAO.getAllProducts();
 		// Calculate total image size
-		long totalSize = 0;
+		long totalSizeKB = 0;
 		for (Product product : products) {
-			totalSize += product.getSize();
+			totalSizeKB += product.getSize();
 		}
 
+		
+		System.out.println("totalSize = " + (totalSizeKB / 1024));
+
 		request.setAttribute("products", products);
-		request.setAttribute("totalSize", totalSize / 1024); // Convert to KB
+		request.setAttribute("totalSize", totalSizeKB / 1024); // Convert to KB
 		request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
 	}
 }

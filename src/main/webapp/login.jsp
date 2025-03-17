@@ -8,7 +8,7 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="login" method="post">
+        <form action="${pageContext.request.contextPath}/login" method="post">
             <div class="form-group">
                 <label>Username: <span class="required">*</span></label>
                 <input type="text" name="username" required>

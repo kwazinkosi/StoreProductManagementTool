@@ -11,5 +11,9 @@ public interface IProductService {
 	List<Product> getAllProducts();
 
 	boolean deleteProduct(int productId);
+	
+	boolean updateProduct(Product product);
+
+	Product getProductById(int productId);
 
 }
